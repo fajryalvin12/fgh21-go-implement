@@ -1,50 +1,13 @@
 package main
 
-import "fmt"
-
-func calcDiscount (price int, voucher string) (int) {
-	discount := 0 // var discount int = 0
-	if voucher == "FazzFood50" {
-		if price >= 50000 {
-			discount = price * 50/100
-			if discount > 50000 {
-				discount = 50000
-			}
-		}
-	} else if voucher == "Ditraktir60" {
-		if price >= 25000 {
-			discount = price * 60/100
-			if discount > 30000 {
-				discount = 25000
-			}
-		}
-	}
-	return discount
-}
-
-func calcShipping (distance int) (int) {
-	shippingFee := 5000
-
-	if distance > 2 {
-		shippingFee = shippingFee + (distance - 2) * 3000 
-	}
-	return shippingFee
-}
-
-func calcTax (price int, isTax bool) (int) {
-	taxValue := 0
-
-	if isTax == true {
-		taxValue = price * 5/100
-	}
-
-	return taxValue
-}
-
+import (
+	"fazztrack/golangbasic/calc"
+	"fmt"
+)
 func fazzFood(price int, voucher string, distance int, isTax bool) {
-	discount := calcDiscount(price, voucher)
-	shippingFee := calcShipping(distance)
-	taxValue := calcTax(price, isTax)
+	discount := calc.Discount(price, voucher)
+	shippingFee := calc.Shipping(distance)
+	taxValue := calc.Tax(price, isTax)
 	
 	var subtotal int = price - discount + shippingFee + taxValue
 	fmt.Printf("Harga		: %d\n", price)
